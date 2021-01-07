@@ -26,7 +26,7 @@ $(document).ready(function () {
         if (
             $('#library').is(":checked")) {
             //change this url to match your library's! Here is Leiden's URL as an example for ExLibris Primo users - Old UI! But the same logic applies for Primo NEW UI
-            var newLibraryURL = 'http://catalogue.leidenuniv.nl/primo_library/libweb/action/search.do?fn=search&ct=search&initialSearch=true&mode=Basic&tab=all_content&indx=1&dum=true&srt=rank&vid=UBL_V1&frbg=&tb=t&scp.scps=scope%3A%28UBL_DSPACE%29%2Cscope%3A%28"UBL"%29%2Cscope%3A%28UBL_DTL%29%2Cscope%3A%28UBL_ALMA%29%2Cprimo_central_multiple_fe&vl%28freeText0%29=' + searchstring + '&source=LibrarySearchPluginPunblic'; //you can modofy &source to anything you like. This is useful to see how many users are coming to your catalogue via the plugin, in Google Analytics.
+            var newLibraryURL = 'https://col-westernsem.primo.exlibrisgroup.com/discovery/search?tab=Everything&search_scope=MyInst_and_CI&vid=01COL_WTS:WTS&lang=en&offset=0&query=any,contains,' + searchstring + '&source=LibrarySearchPluginPublic'; //you can modify &source to anything you like. This is useful to see how many users are coming to your catalogue via the plugin, in Google Analytics.
             // Create the new tab
             chrome.tabs.create({
                 url: newLibraryURL
@@ -36,7 +36,7 @@ $(document).ready(function () {
         if (
             $('#worldcat').is(":checked")) {
             //alert("WorldCat checked");
-            var newWorldcatURL = 'https://www.worldcat.org/search?q=' + searchstring;
+            var newWorldcatURL = 'https://westerntheolseminary.on.worldcat.org/search?&databaseList=143,233,2013,638,283&scope=0&clusterResults=false&se=nodgr&sd=desc&qt=sort_nodgr_desc&queryString=kw:' + searchstring;
             // Create the new tab
             chrome.tabs.create({
                 url: newWorldcatURL
@@ -52,16 +52,6 @@ $(document).ready(function () {
                 url: newScholarURL
             });
         }
-        //Pubmed
-        if (
-            $('#pubmed').is(":checked")) {
-            //alert("Google Scholar checked");
-            var newPubmedURL = 'https://www.ncbi.nlm.nih.gov/pubmed/?otool=YOURINSTITUTIONPUBMEDID&term=' + searchstring; // Pubmed uses "otool" to add openurls links on the website. Replace YOURINSTITUTIONPUBMEDID with, well, your institution's pubmed id. Or google "pubmed otool" for more info
-            // Create the new tab
-            chrome.tabs.create({
-                url: newPubmedURL
-            });
-        }
     });
     $('#searchInput').keypress(function (e) {
         if (e.which == 13) { //Enter key pressed
@@ -74,19 +64,15 @@ $(document).ready(function () {
 var searches = [
     {
         title: "Search in the Library Catalogue", // Same as above: edit to match your library's url. Modify &soruce as well at the end. Remeber to keep '%s'
-        url: "http://catalogue.leidenuniv.nl/primo_library/libweb/action/search.do?fn=search&ct=search&initialSearch=true&mode=Basic&tab=all_content&indx=1&dum=true&srt=rank&vid=UBL_V1&frbg=&tb=t&scp.scps=scope%3A%28UBL_DSPACE%29%2Cscope%3A%28%22UBL%22%29%2Cscope%3A%28UBL_DTL%29%2Cscope%3A%28UBL_ALMA%29%2Cprimo_central_multiple_fe&vl%28freeText0%29=%s&source=LibrarySearchPluginPublic"
+        url: "https://col-westernsem.primo.exlibrisgroup.com/discovery/search?tab=Everything&search_scope=MyInst_and_CI&vid=01COL_WTS:WTS&lang=en&offset=0&query=any,contains,%s&source=LibrarySearchPluginPublic"
   },
     {
         title: "Search in WorldCat",
-        url: "https://www.worldcat.org/search?q=%s"
+        url: "https://westerntheolseminary.on.worldcat.org/search?&databaseList=143,233,2013,638,283&scope=0&clusterResults=false&se=nodgr&sd=desc&qt=sort_nodgr_desc&queryString=kw:%s"
   },
     {
         title: "Search in Google Scholar",
         url: "https://scholar.google.com/scholar?q=%s"
-  },
-    {
-        title: "Search in PubMed", // Again: remove or adapt your pubmed id hereunder
-        url: "https://www.ncbi.nlm.nih.gov/pubmed/?otool=YOURINSTITUTIONPUBMEDID&term=%s"
   }
 ];
 // Create a parent item and two children.
