@@ -13,6 +13,17 @@ _gaq.push(['_trackPageview']);
 })();
 
 */
+/* Google Analytics 4 Tag */
+  var gtag = document.createElement('script');
+  gtag.type = 'text/javascript';
+  gtag.async = 'true';
+  gtag.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'www.googletagmanager.com/gtag/js?id=G-61RHNW4G0Y';
+  document.getElementsByTagName('head')[0].appendChild(gtag);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-61RHNW4G0Y');
 
 //SEARCHBOX STUFF
 $(document).ready(function () {
